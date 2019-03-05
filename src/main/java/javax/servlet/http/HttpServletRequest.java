@@ -24,6 +24,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  *
  * Extends the {@link javax.servlet.ServletRequest} interface to provide request information for HTTP servlets.
@@ -216,7 +218,7 @@ public interface HttpServletRequest extends ServletRequest {
             }
 
             @Override
-            public MappingMatch getMappingMatch() {
+            public @Nullable MappingMatch getMappingMatch() {
                 return null;
             }
 
@@ -282,7 +284,7 @@ public interface HttpServletRequest extends ServletRequest {
      *
      * @since Servlet 4.0
      */
-    default public PushBuilder newPushBuilder() {
+    default public @Nullable PushBuilder newPushBuilder() {
         return null;
     }
 

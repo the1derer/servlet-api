@@ -17,6 +17,8 @@
 
 package javax.servlet.http;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * <p>
  * Allows runtime discovery of the manner in which the {@link HttpServlet} for the current {@link HttpServletRequest}
@@ -148,6 +150,6 @@ public interface HttpServletMapping {
      * 
      * @since 4.0
      */
-    public MappingMatch getMappingMatch();
+    public @Nullable MappingMatch getMappingMatch();
 
 }

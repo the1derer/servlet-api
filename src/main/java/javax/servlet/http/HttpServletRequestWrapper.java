@@ -23,6 +23,8 @@ import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequestWrapper;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Provides a convenient implementation of the HttpServletRequest interface that can be subclassed by developers wishing
  * to adapt the request to a Servlet.
@@ -345,7 +347,7 @@ public class HttpServletRequestWrapper extends ServletRequestWrapper implements 
      * @since Servlet 4.0
      */
     @Override
-    public PushBuilder newPushBuilder() {
+    public @Nullable PushBuilder newPushBuilder() { //can return null in some cases as in HttpServletRequest.newPushBuilder()
         return this._getHttpServletRequest().newPushBuilder();
     }
 
