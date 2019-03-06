@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 import javax.servlet.ServletResponse;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  *
  * Extends the {@link ServletResponse} interface to provide HTTP-specific functionality in sending a response. For
@@ -410,7 +412,7 @@ public interface HttpServletResponse extends ServletResponse {
      * 
      * @since Servlet 4.0
      */
-    default public Supplier<Map<String, String>> getTrailerFields() {
+    default public @Nullable Supplier<Map<String, String>> getTrailerFields() { // The default implememtation return null.
         return null;
     }
 

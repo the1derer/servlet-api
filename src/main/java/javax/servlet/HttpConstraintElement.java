@@ -21,6 +21,8 @@ import javax.servlet.annotation.HttpConstraint;
 import javax.servlet.annotation.ServletSecurity.EmptyRoleSemantic;
 import javax.servlet.annotation.ServletSecurity.TransportGuarantee;
 
+import org.checkerframework.checker.initialization.qual.UnderInitialization;
+
 /**
  * Java Class representation of an {@link HttpConstraint} annotation value.
  *
@@ -118,7 +120,7 @@ public class HttpConstraintElement {
         return copyStrings(this.rolesAllowed);
     }
 
-    private String[] copyStrings(String[] strings) {
+    private String[] copyStrings(@UnderInitialization HttpConstraintElement this , String[] strings) { //method used fot Object initialization
         String[] arr = null;
         if (strings != null) {
             int len = strings.length;

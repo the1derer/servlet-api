@@ -20,6 +20,7 @@ package javax.servlet;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  *
  * <p>
@@ -49,7 +50,7 @@ public abstract class GenericFilter implements Filter, FilterConfig, java.io.Ser
     private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
     private static final ResourceBundle lStrings = ResourceBundle.getBundle(LSTRING_FILE);
 
-    private transient FilterConfig config;
+    @Nullable private transient FilterConfig config;// all null dereference to config is handled by the api
 
     /**
      *
@@ -124,7 +125,7 @@ public abstract class GenericFilter implements Filter, FilterConfig, java.io.Ser
      *
      * @since Servlet 4.0
      */
-    public FilterConfig getFilterConfig() {
+    public @Nullable FilterConfig getFilterConfig() {
         return config;
     }
 

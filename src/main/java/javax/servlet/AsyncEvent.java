@@ -17,6 +17,8 @@
 
 package javax.servlet;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Event that gets fired when the asynchronous operation initiated on a ServletRequest (via a call to
  * {@link ServletRequest#startAsync} or {@link ServletRequest#startAsync(ServletRequest, ServletResponse)}) has
@@ -29,7 +31,7 @@ public class AsyncEvent {
     private AsyncContext context;
     private ServletRequest request;
     private ServletResponse response;
-    private Throwable throwable;
+    private @Nullable Throwable throwable; // AsyncEvent Can be initialized without Throwable
 
     /**
      * Constructs an AsyncEvent from the given AsyncContext.
@@ -69,7 +71,7 @@ public class AsyncEvent {
      * @param response  the ServletResponse to be delivered with this AsyncEvent
      * @param throwable the Throwable to be delivered with this AsyncEvent
      */
-    public AsyncEvent(AsyncContext context, ServletRequest request, ServletResponse response, Throwable throwable) {
+    public AsyncEvent(AsyncContext context, ServletRequest request, ServletResponse response,@Nullable Throwable throwable) { // AsycEvent can bet initialized without throwable https://javaee.github.io/javaee-spec/javadocs/javax/servlet/AsyncEvent.html#getThrowable--
         this.context = context;
         this.request = request;
         this.response = response;
@@ -123,7 +125,7 @@ public class AsyncEvent {
      * @return the Throwable that was used to initialize this AsyncEvent, or null if this AsyncEvent was initialized
      *         without any Throwable
      */
-    public Throwable getThrowable() {
+    public @Nullable Throwable getThrowable() {
         return throwable;
     }
 

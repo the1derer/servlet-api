@@ -18,6 +18,9 @@
 
 package javax.servlet;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+
 /**
  * Defines an exception that a servlet or filter throws to indicate that it is permanently or temporarily unavailable.
  *
@@ -45,7 +48,7 @@ public class UnavailableException extends ServletException {
 
     private static final long serialVersionUID = 5622686609215003468L;
 
-    private Servlet servlet; // what's unavailable
+    @Nullable private Servlet servlet; // what's unavailable // The Servlet becomes null after it becomes Unavailable
     private boolean permanent; // needs admin action?
     private int seconds; // unavailability estimate
 
@@ -59,7 +62,7 @@ public class UnavailableException extends ServletException {
      *
      */
     @Deprecated
-    public UnavailableException(Servlet servlet, String msg) {
+    public UnavailableException(@Nullable Servlet servlet, String msg) {
         super(msg);
         this.servlet = servlet;
         permanent = true;
@@ -78,7 +81,7 @@ public class UnavailableException extends ServletException {
      *
      */
     @Deprecated
-    public UnavailableException(int seconds, Servlet servlet, String msg) {
+    public UnavailableException(int seconds,@Nullable Servlet servlet, String msg) {
         super(msg);
         this.servlet = servlet;
         if (seconds <= 0)
@@ -149,6 +152,7 @@ public class UnavailableException extends ServletException {
      * @return the <code>Servlet</code> object that is throwing the <code>UnavailableException</code>
      *
      */
+    @RequiresNonNull("servlet")
     @Deprecated
     public Servlet getServlet() {
         return servlet;
