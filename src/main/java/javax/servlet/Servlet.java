@@ -20,6 +20,8 @@ package javax.servlet;
 
 import java.io.IOException;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Defines methods that all servlets must implement.
  *
@@ -94,7 +96,7 @@ public interface Servlet {
      * @see #init
      *
      */
-    public ServletConfig getServletConfig();
+    public @Nullable ServletConfig getServletConfig();
 
     /**
      * Called by the servlet container to allow the servlet to respond to a request.
