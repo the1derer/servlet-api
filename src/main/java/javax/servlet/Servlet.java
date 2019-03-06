@@ -96,7 +96,7 @@ public interface Servlet {
      * @see #init
      *
      */
-    public @Nullable ServletConfig getServletConfig();
+    public @Nullable ServletConfig getServletConfig(); // the implementation can return null as in case of GenericServlet.java
 
     /**
      * Called by the servlet container to allow the servlet to respond to a request.
