@@ -18,6 +18,8 @@
 
 package javax.servlet;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Defines a general exception a servlet can throw when it encounters difficulty.
  *
@@ -27,7 +29,7 @@ public class ServletException extends Exception {
 
     private static final long serialVersionUID = 4221302886851315160L;
 
-    private Throwable rootCause;
+    private @Nullable Throwable rootCause;// there is no neccessity of rootCause to ve there
 
     /**
      * Constructs a new servlet exception.
