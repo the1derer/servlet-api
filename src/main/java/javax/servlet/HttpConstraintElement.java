@@ -120,7 +120,7 @@ public class HttpConstraintElement {
         return copyStrings(this.rolesAllowed);
     }
 
-    private String[] copyStrings(@UnderInitialization HttpConstraintElement this , String[] strings) { //method used fot Object initialization
+    private String[] copyStrings(String[] strings) { //method used fot Object initialization
         String[] arr = null;
         if (strings != null) {
             int len = strings.length;

@@ -325,8 +325,8 @@ public abstract class HttpServlet extends GenericServlet {
         }
     }
 
-    @SuppressWarnings("nullness")
-    private Method[] getAllDeclaredMethods(@NonNull Class<? extends HttpServlet> c) {
+    @SuppressWarnings("nullness") //Private method so no way we can pass null as argument in this method and cause any NullPointerExceptions
+    private Method[] getAllDeclaredMethods(Class<? extends HttpServlet> c) {
 
         Class<?> clazz = c;
         Method[] allMethods = null;

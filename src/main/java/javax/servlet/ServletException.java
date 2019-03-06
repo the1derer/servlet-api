@@ -64,7 +64,7 @@ public class ServletException extends Exception {
      *                  this servlet exception necessary
      *
      */
-    @EnsuresNonNull("rootCause")
+    @EnsuresNonNull("#2")
     public ServletException(String message, Throwable rootCause) {
         super(message, rootCause);
         this.rootCause = rootCause;

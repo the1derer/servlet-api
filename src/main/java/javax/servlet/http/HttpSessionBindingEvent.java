@@ -18,6 +18,9 @@
 
 package javax.servlet.http;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+
 /**
  *
  * Events of this type are either sent to an object that implements {@link HttpSessionBindingListener} when it is bound
@@ -42,7 +45,7 @@ public class HttpSessionBindingEvent extends HttpSessionEvent {
     private String name;
 
     /* The object is being bound or unbound */
-    private Object value;
+    private @Nullable Object value; // Set by class implementing HttpSessionAttributeListener with methods to manupulate or add values
 
     /**
      *
@@ -102,6 +105,7 @@ public class HttpSessionBindingEvent extends HttpSessionEvent {
      *
      * @since Servlet 2.3
      */
+    @RequiresNonNull("value")
     public Object getValue() {
         return this.value;
     }

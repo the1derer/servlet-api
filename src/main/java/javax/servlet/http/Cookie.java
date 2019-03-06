@@ -187,7 +187,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #getDomain
      */
-    @EnsuresNonNull("domain")
+    @EnsuresNonNull("#1")
     public void setDomain(String domain) {
         this.domain = domain.toLowerCase(Locale.ENGLISH); // IE allegedly needs this
     }

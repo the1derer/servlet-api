@@ -48,7 +48,7 @@ public class UnavailableException extends ServletException {
 
     private static final long serialVersionUID = 5622686609215003468L;
 
-    @Nullable private Servlet servlet; // what's unavailable // The Servlet becomes null after it becomes Unavailable
+    private @Nullable  Servlet servlet; // what's unavailable // The Servlet becomes null after it becomes Unavailable
     private boolean permanent; // needs admin action?
     private int seconds; // unavailability estimate
 

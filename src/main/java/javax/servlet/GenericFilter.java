@@ -50,7 +50,7 @@ public abstract class GenericFilter implements Filter, FilterConfig, java.io.Ser
     private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
     private static final ResourceBundle lStrings = ResourceBundle.getBundle(LSTRING_FILE);
 
-    @Nullable private transient FilterConfig config;// all null dereference to config is handled by the api
+    private transient @Nullable FilterConfig config;// all null dereference to config is handled by the api
 
     /**
      *
