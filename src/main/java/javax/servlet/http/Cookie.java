@@ -23,6 +23,11 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+
 /**
  *
  * Creates a cookie, a small amount of information sent by a servlet to a Web browser, saved by the browser, and later
@@ -84,11 +89,11 @@ public class Cookie implements Cloneable, Serializable {
     // Attributes encoded in the header's cookie fields.
     //
 
-    private String comment; // ;Comment=VALUE ... describes cookie's use
+    private @Nullable String comment; // ;Comment=VALUE ... describes cookie's use //Accessing comment can return null
     // ;Discard ... implied by maxAge < 0
-    private String domain; // ;Domain=VALUE ... domain that sees cookie
+    private @MonotonicNonNull String domain; // ;Domain=VALUE ... domain that sees cookie //see line 88 and is setDomain()
     private int maxAge = -1; // ;Max-Age=VALUE ... cookies auto-expire
-    private String path; // ;Path=VALUE ... URLs that see the cookie
+    private @MonotonicNonNull String path; // ;Path=VALUE ... URLs that see the cookie //see line 88 and is set by setPath()
     private boolean secure; // ;Secure ... e.g. use SSL
     private int version = 0; // ;Version=1 ... means RFC 2109++ style
     private boolean isHttpOnly = false;
@@ -162,7 +167,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #setComment
      */
-    public String getComment() {
+    public @Nullable String getComment() {
         return comment;
     }
 
@@ -180,6 +185,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #getDomain
      */
+    @EnsuresNonNull("domain")
     public void setDomain(String domain) {
         this.domain = domain.toLowerCase(Locale.ENGLISH); // IE allegedly needs this
     }
@@ -194,6 +200,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #setDomain
      */
+    @RequiresNonNull("domain")
     public String getDomain() {
         return domain;
     }
@@ -249,6 +256,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #getPath
      */
+    @EnsuresNonNull("path") // see line 86
     public void setPath(String uri) {
         path = uri;
     }
@@ -261,7 +269,8 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #setPath
      */
-    public String getPath() {
+    @RequiresNonNull("path")
+    public  String getPath() {
         return path;
     }
 
