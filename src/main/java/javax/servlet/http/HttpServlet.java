@@ -325,7 +325,6 @@ public abstract class HttpServlet extends GenericServlet {
         }
     }
 
-    @SuppressWarnings("nullness") //Private method so no way we can pass null as argument in this method and cause any NullPointerExceptions
     private Method[] getAllDeclaredMethods(Class<? extends HttpServlet> c) {
 
         Class<?> clazz = c;
@@ -343,6 +342,8 @@ public abstract class HttpServlet extends GenericServlet {
             }
 
             clazz = clazz.getSuperclass();
+            assert clazz != null
+            : "@AssumeAssertion(nullness): clazz was not Object, so its superclass is not null";
         }
 
         return ((allMethods != null) ? allMethods : new Method[0]);
