@@ -7,7 +7,7 @@ Prerequisites:
 * Maven 3.0.3+
 
 # To Build
-mvn clean install
+``mvn clean install``
 
 ## 1. Unannotated Code is present at master branch.
 
