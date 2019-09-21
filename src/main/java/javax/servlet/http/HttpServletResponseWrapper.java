@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 import javax.servlet.ServletResponseWrapper;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * 
  * Provides a convenient implementation of the HttpServletResponse interface that can be subclassed by developers
@@ -287,7 +289,7 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
      * @since Servlet 4.0
      */
     @Override
-    public Supplier<Map<String, String>> getTrailerFields() {
+    public @Nullable Supplier<Map<String, String>> getTrailerFields() { // The default implemententation of HttpServletResponse.getTrailerFields() returns null
         return _getHttpServletResponse().getTrailerFields();
     }
 }

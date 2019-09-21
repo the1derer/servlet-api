@@ -18,6 +18,11 @@
 
 package javax.servlet;
 
+import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+
 /**
  * Defines a general exception a servlet can throw when it encounters difficulty.
  *
@@ -27,7 +32,7 @@ public class ServletException extends Exception {
 
     private static final long serialVersionUID = 4221302886851315160L;
 
-    private Throwable rootCause;
+    private @MonotonicNonNull Throwable rootCause;// there is no neccessity of rootCause to ve there
 
     /**
      * Constructs a new servlet exception.
@@ -90,6 +95,7 @@ public class ServletException extends Exception {
      * @return the <code>Throwable</code> that caused this servlet exception
      *
      */
+    @RequiresNonNull("rootCause")
     public Throwable getRootCause() {
         return rootCause;
     }

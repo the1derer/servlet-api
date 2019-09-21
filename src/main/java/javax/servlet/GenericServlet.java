@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  *
  * Defines a generic, protocol-independent servlet. To write an HTTP servlet for use on the Web, extend
@@ -50,7 +52,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
     private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
     private static ResourceBundle lStrings = ResourceBundle.getBundle(LSTRING_FILE);
 
-    private transient ServletConfig config;
+    private transient @Nullable ServletConfig config;
 
     /**
      *
@@ -122,7 +124,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
      * @return ServletConfig the <code>ServletConfig</code> object that initialized this servlet
      */
     @Override
-    public ServletConfig getServletConfig() {
+    public @Nullable ServletConfig getServletConfig() {
         return config;
     }
 

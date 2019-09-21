@@ -21,6 +21,8 @@ import java.util.*;
 import javax.servlet.annotation.HttpMethodConstraint;
 import javax.servlet.annotation.ServletSecurity;
 
+import org.checkerframework.checker.initialization.qual.UnderInitialization;
+
 /**
  * Java Class representation of a {@link ServletSecurity} annotation value.
  *
@@ -137,7 +139,8 @@ public class ServletSecurityElement extends HttpConstraintElement {
      *
      * @throws IllegalArgumentException if duplicate method names are detected
      */
-    private Collection<String> checkMethodNames(Collection<HttpMethodConstraintElement> methodConstraints) {
+    // 3 Constructor use this method for the very initializtion
+    private Collection<String> checkMethodNames(@UnderInitialization ServletSecurityElement this, Collection<HttpMethodConstraintElement> methodConstraints) {
         Collection<String> methodNames = new HashSet<>();
         for (HttpMethodConstraintElement methodConstraint : methodConstraints) {
             String methodName = methodConstraint.getMethodName();

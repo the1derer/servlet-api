@@ -29,6 +29,10 @@ import java.util.ResourceBundle;
 
 import javax.servlet.*;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+
 /**
  *
  * Provides an abstract class to be subclassed to create an HTTP servlet suitable for a Web site. A subclass of
@@ -338,6 +342,8 @@ public abstract class HttpServlet extends GenericServlet {
             }
 
             clazz = clazz.getSuperclass();
+            assert clazz != null
+            : "@AssumeAssertion(nullness): clazz was not Object, so its superclass is not null";
         }
 
         return ((allMethods != null) ? allMethods : new Method[0]);
@@ -602,7 +608,7 @@ class NoBodyResponse extends HttpServletResponseWrapper {
     private static final ResourceBundle lStrings = ResourceBundle.getBundle("javax.servlet.http.LocalStrings");
 
     private NoBodyOutputStream noBody;
-    private PrintWriter writer;
+    private @Nullable PrintWriter writer; // 
     private boolean didSetContentLength;
     private boolean usingOutputStream;
 

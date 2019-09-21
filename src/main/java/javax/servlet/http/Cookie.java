@@ -23,6 +23,12 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.checkerframework.checker.initialization.qual.UnderInitialization;
+import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+
 /**
  *
  * Creates a cookie, a small amount of information sent by a servlet to a Web browser, saved by the browser, and later
@@ -84,11 +90,12 @@ public class Cookie implements Cloneable, Serializable {
     // Attributes encoded in the header's cookie fields.
     //
 
-    private String comment; // ;Comment=VALUE ... describes cookie's use
+    // Error: constructor doesn't initialize fields comment,domain,path
+    private @Nullable String comment; // ;Comment=VALUE ... describes cookie's use // According to javadoc Accessing comment can return null
     // ;Discard ... implied by maxAge < 0
-    private String domain; // ;Domain=VALUE ... domain that sees cookie
+    private @MonotonicNonNull String domain; // ;Domain=VALUE ... domain that sees cookie //see line 89 and is setDomain() 
     private int maxAge = -1; // ;Max-Age=VALUE ... cookies auto-expire
-    private String path; // ;Path=VALUE ... URLs that see the cookie
+    private @MonotonicNonNull String path; // ;Path=VALUE ... URLs that see the cookie //see line 89 and is set by setPath()
     private boolean secure; // ;Secure ... e.g. use SSL
     private int version = 0; // ;Version=1 ... means RFC 2109++ style
     private boolean isHttpOnly = false;
@@ -162,7 +169,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #setComment
      */
-    public String getComment() {
+    public @Nullable String getComment() {
         return comment;
     }
 
@@ -180,6 +187,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #getDomain
      */
+    @EnsuresNonNull("#1")
     public void setDomain(String domain) {
         this.domain = domain.toLowerCase(Locale.ENGLISH); // IE allegedly needs this
     }
@@ -194,6 +202,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #setDomain
      */
+    @RequiresNonNull("domain")
     public String getDomain() {
         return domain;
     }
@@ -249,6 +258,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #getPath
      */
+    @EnsuresNonNull("path") // see line 89
     public void setPath(String uri) {
         path = uri;
     }
@@ -261,7 +271,8 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @see #setPath
      */
-    public String getPath() {
+    @RequiresNonNull("path")
+    public  String getPath() {
         return path;
     }
 
@@ -369,7 +380,7 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @return <code>true</code> if the <code>String</code> is a reserved token; <code>false</code> otherwise
      */
-    private boolean isToken(String value) {
+    private boolean isToken(@UnderInitialization Cookie this, String value) { // Constructor doesn't initialize 3 fields.
         int len = value.length();
         for (int i = 0; i < len; i++) {
             char c = value.charAt(i);
